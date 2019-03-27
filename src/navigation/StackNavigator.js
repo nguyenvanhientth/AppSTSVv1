@@ -1,26 +1,26 @@
 import {createAppContainer,createStackNavigator} from 'react-navigation';
 import LoginScreen from '../screen/LoginScreen';
-import MainScreen from '../screen/MainScreen';
 import ForgotPassScreen from '../screen/ForgotPassScreen';
-import ChangePassScreen from '../screen/ChangePassScreen'
+import MainApp from './DrawerNavigator';
 
+const LoginStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+    Forgot: ForgotPassScreen
+  }
+)
 const RootStack = createStackNavigator(
     {
-      Home: {
-        screen: LoginScreen,
+      Login: {
+        screen: LoginStack,
       },
       Main: {
-        screen: MainScreen,
+        screen: MainApp,
       },
-      Forgot:{
-        screen: ForgotPassScreen
-      },
-      Change:{
-        screen: ChangePassScreen
-      }
     },
     {
-      initialRouteName: 'Home',
+      initialRouteName: 'Login',
+      headerMode: null
     }
   );
   

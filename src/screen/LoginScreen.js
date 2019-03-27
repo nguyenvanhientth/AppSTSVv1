@@ -7,6 +7,9 @@ const id = require('../image/id.png');
 const logo_spkt = require('../image/Logo_spkt.png')
 
 export default class LoginScreen extends Component {
+  static navigationOptions = {
+    header: null,
+};
 
   constructor(props) {
     super(props);

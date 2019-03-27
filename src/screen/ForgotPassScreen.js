@@ -7,6 +7,9 @@ const id = require('../image/id.png');
 const phone = require('../image/phone.png');
 
 export default class ForgotPassScreen extends Component {
+  static navigationOptions = {
+    header: null,
+};
 
   constructor(props) {
     super(props);

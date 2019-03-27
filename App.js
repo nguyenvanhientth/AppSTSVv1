@@ -16,8 +16,8 @@ import DeawerNavigatior from './src/navigation/DrawerNavigator'
 export default class App extends React.Component {
   render() {
     return(
-      //<AppContainer/>
-      <DeawerNavigatior/>
+      <AppContainer/>
+      // <DeawerNavigatior/>
     );
   }
 }

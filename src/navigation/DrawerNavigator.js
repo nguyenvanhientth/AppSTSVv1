@@ -1,14 +1,30 @@
-import React, { Component } from 'react';
-import { Platform , Dimensions } from 'react-native';
-import { CreateDrawerNavigator, createAppcontainer } from 'react-navigation';
-
-import MainScreen from '../screen/MainScreen'
+ import React, { Component } from 'react';
+ import { Platform , Dimensions } from 'react-native';
+ import { createDrawerNavigator, createStackNavigator, DrawerNavigator } from 'react-navigation';
+ import MainScreen from '../screen/MainScreen';
+ import ChanePassScreen from '../screen/ChangePassScreen';
+ import UpdateScreen from '../screen/UpdateScreen';
 
 const WIDTH = Dimensions.get('window').width;
-const DeawerNavigatior = createAppcontainer({
+const  DeawerNavigatior = createDrawerNavigator({
     Home: {
-        screen : MainScreen
+        screen: MainScreen
+     },
+    ChanePass: {
+        screen: ChanePassScreen
     },
-});
+    Update: {
+        screen: UpdateScreen
+    }
+ },
+ {
+    navigationOptions: {
+        header: null,
+    }
+ });
 
-export default createAppcontainer(DeawerNavigatior);
+ export default MainApp = createStackNavigator({
+     DrawerStack: {
+         screen: DeawerNavigatior
+     }
+ })

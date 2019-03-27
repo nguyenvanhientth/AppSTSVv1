@@ -5,6 +5,11 @@ import DrawerNavigation from '../navigation/DrawerNavigator'
 import ChangePassScreen from '../screen/ChangePassScreen'
 
 export default class MainScreen extends React.Component {
+  static navigationOptions = {
+    drawerLabel: 'Main',
+    header: null,
+  }
+  
   render() {
     return (
       <View style={styles.container}>
