@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,Text,View,TextInput,Button,TouchableHighlight,Image,Alert
+  StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert
 } from 'react-native';
 
 const id = require('../image/id.png');
+const logo_spkt = require('../image/Logo_spkt.png')
 
 export default class LoginScreen extends Component {
 
@@ -16,7 +17,7 @@ export default class LoginScreen extends Component {
   }
 
   onClickListener = (viewId) => {
-    Alert.alert("Alert", "Button pressed "+viewId);
+    Alert.alert("Chúc Mừng", " Bạn đã đăng nhập thành công "+viewId);
     this.props.navigation.navigate('Main');
   }
 
@@ -27,11 +28,14 @@ export default class LoginScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.logo}>
+          <Image style={styles.logo_spkt} source={logo_spkt}/>
+        </View>
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={id} />
           <TextInput style={styles.inputs}
               placeholder="Ma Sinh Vien"
-              keyboardType="numbers-and-punctuation"
+              keyboardType="number-pad"
               underlineColorAndroid='transparent'
               onChangeText={(masv) => this.setState({masv})}/>
         </View>
@@ -39,6 +43,7 @@ export default class LoginScreen extends Component {
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
           <TextInput style={styles.inputs}
+              keyboardType="default"
               placeholder="Password"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
@@ -102,5 +107,14 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: 'white',
+  },
+  logo: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom : 50
+  },
+  logo_spkt:{
+    width: 150,
+    height: 150
   }
 });

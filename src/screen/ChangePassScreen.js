@@ -6,13 +6,13 @@ import {
 const id = require('../image/id.png');
 const phone = require('../image/phone.png');
 
-export default class ForgotPassScreen extends Component {
+export default class ChangePassScreen extends Component {
 
   constructor(props) {
     super(props);
     state = {
       masv : '',
-      sdt: '',
+      password: '',
     }
   }
 
@@ -33,17 +33,40 @@ export default class ForgotPassScreen extends Component {
         </View>
         
         <View style={styles.inputContainer}>
-          <Image style={styles.inputIcon} source={phone}/>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
           <TextInput style={styles.inputs}
-              placeholder="So DT"
-              keyboardType = "phone-pad"
+              keyboardType="default"
+              placeholder="Mật khẩu cũ"
+              secureTextEntry={true}
               underlineColorAndroid='transparent'
-              onChangeText={(sdt) => this.setState({sdt})}/>
+              onChangeText={(password) => this.setState({password})}/>
         </View>
-
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
-          <Text style={styles.loginText}>Request</Text>
-        </TouchableHighlight>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              keyboardType="default"
+              placeholder="Mật khẩu mới"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              onChangeText={(password) => this.setState({password})}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              keyboardType="default"
+              placeholder="Xác nhận mật khẩu mới"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              onChangeText={(password) => this.setState({password})}/>
+        </View>
+        <View style={{ flexDirection:'row', }}>
+            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
+              <Text style={styles.loginText}>Change</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
+              <Text style={styles.loginText}>Cancel</Text>
+            </TouchableHighlight>
+        </View>
 
       </View>
     );
@@ -82,12 +105,14 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height:45,
+    width:90,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom:20,
-    width:250,
     borderRadius:30,
+    marginLeft:20,
+    marginRight:20,
   },
   loginButton: {
     backgroundColor: "#00b5ec",
