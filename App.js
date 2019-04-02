@@ -7,12 +7,13 @@
  */
 
 import React, {Component} from 'react';
-import AppContainer from './src/navigation/StackNavigator'
+import AppContainer from './src/Navigations/StackNavigator'
 
-export default class App extends React.Component {
-  render() {
+export default class App extends Component {
+  render(){
     return(
       <AppContainer/>
     );
   }
 }
+
