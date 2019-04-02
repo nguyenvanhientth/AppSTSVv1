@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert
+  StyleSheet,Text,View,TextInput,Button,TouchableHighlight,Image,Alert
 } from 'react-native';
 
 const id = require('../image/id.png');
-const logo_spkt = require('../image/Logo_spkt.png')
+const phone = require('../image/phone.png');
 
-export default class LoginScreen extends Component {
+export default class ChangePassScreen extends Component {
   static navigationOptions = {
     header: null,
 };
@@ -20,20 +20,12 @@ export default class LoginScreen extends Component {
   }
 
   onClickListener = (viewId) => {
-    Alert.alert("Chúc Mừng", " Bạn đã đăng nhập thành công "+viewId);
-    this.props.navigation.navigate('Main');
-  }
-
-  forgotClick = () => {
-    this.props.navigation.navigate('Forgot');
+    Alert.alert("Alert", "Button pressed "+viewId);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={styles.logo}>
-          <Image style={styles.logo_spkt} source={logo_spkt}/>
-        </View>
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={id} />
           <TextInput style={styles.inputs}
@@ -47,19 +39,37 @@ export default class LoginScreen extends Component {
           <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
           <TextInput style={styles.inputs}
               keyboardType="default"
-              placeholder="Password"
+              placeholder="Mật khẩu cũ"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
               onChangeText={(password) => this.setState({password})}/>
         </View>
-
-        <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
-          <Text style={styles.loginText}>Login</Text>
-        </TouchableHighlight>
-
-        <TouchableHighlight style={styles.buttonContainer} onPress={() => this.forgotClick()}>
-            <Text>Forgot your password?</Text>
-        </TouchableHighlight>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              keyboardType="default"
+              placeholder="Mật khẩu mới"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              onChangeText={(password) => this.setState({password})}/>
+        </View>
+        <View style={styles.inputContainer}>
+          <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+          <TextInput style={styles.inputs}
+              keyboardType="default"
+              placeholder="Xác nhận mật khẩu mới"
+              secureTextEntry={true}
+              underlineColorAndroid='transparent'
+              onChangeText={(password) => this.setState({password})}/>
+        </View>
+        <View style={{ flexDirection:'row', }}>
+            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
+              <Text style={styles.loginText}>Change</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
+              <Text style={styles.loginText}>Cancel</Text>
+            </TouchableHighlight>
+        </View>
 
       </View>
     );
@@ -98,26 +108,19 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     height:45,
+    width:90,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom:20,
-    width:250,
     borderRadius:30,
+    marginLeft:20,
+    marginRight:20,
   },
   loginButton: {
     backgroundColor: "#00b5ec",
   },
   loginText: {
     color: 'white',
-  },
-  logo: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom : 50
-  },
-  logo_spkt:{
-    width: 150,
-    height: 150
   }
 });

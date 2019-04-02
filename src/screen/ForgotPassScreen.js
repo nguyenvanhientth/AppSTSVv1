@@ -7,6 +7,9 @@ const id = require('../image/id.png');
 const phone = require('../image/phone.png');
 
 export default class ForgotPassScreen extends Component {
+  static navigationOptions = {
+    header: null,
+};
 
   constructor(props) {
     super(props);
@@ -27,7 +30,7 @@ export default class ForgotPassScreen extends Component {
           <Image style={styles.inputIcon} source={id} />
           <TextInput style={styles.inputs}
               placeholder="Ma Sinh Vien"
-              keyboardType="numbers-and-punctuation"
+              keyboardType="number-pad"
               underlineColorAndroid='transparent'
               onChangeText={(masv) => this.setState({masv})}/>
         </View>
@@ -36,7 +39,7 @@ export default class ForgotPassScreen extends Component {
           <Image style={styles.inputIcon} source={phone}/>
           <TextInput style={styles.inputs}
               placeholder="So DT"
-              keyboardType = "name-phone-pad"
+              keyboardType = "phone-pad"
               underlineColorAndroid='transparent'
               onChangeText={(sdt) => this.setState({sdt})}/>
         </View>
