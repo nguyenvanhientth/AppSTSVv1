@@ -2,6 +2,7 @@ import {createAppContainer,createStackNavigator} from 'react-navigation';
 import LoginScreen from '../screen/LoginScreen';
 import ForgotPassScreen from '../screen/ForgotPassScreen';
 import MainApp from './DrawerNavigator';
+import SplashScreen from '../screen/SplashScreen';
 
 const LoginStack = createStackNavigator(
   {
@@ -9,17 +10,35 @@ const LoginStack = createStackNavigator(
     Forgot: ForgotPassScreen
   }
 )
+const SplashStack = createStackNavigator(
+  {
+    SplashScreen:{
+      screen: SplashScreen,
+      navigationOptions: {
+        header: null,
+      },
+    }
+},{
+  navigationOptions: {
+    header: null,
+  },
+  headerMode: null,
+})
 const RootStack = createStackNavigator(
     {
       Login: {
         screen: LoginStack,
+        navigationOptions: {
+          header: null,
+        },
       },
       Main: {
         screen: MainApp,
       },
+      Splash: SplashStack,
     },
     {
-      initialRouteName: 'Login',
+      initialRouteName: 'Splash',
       headerMode: null
     }
   );
