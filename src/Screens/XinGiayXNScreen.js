@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert } from 'react-native';
+import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,Platform } from 'react-native';
 
 const Address = require('../Icons/address.png')
 
@@ -105,6 +105,7 @@ export default class XinGiayXNScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: Platform.OS === 'ios' ? 10 : 0,
         flex : 1,
         justifyContent : 'center',
         alignItems : 'center',

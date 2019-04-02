@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Platform} from 'react-native';
 
 export default class UpdateScreen extends Component{
     static navigationOptions = {
@@ -23,6 +23,7 @@ export default class UpdateScreen extends Component{
 
 const styles = StyleSheet.create({
     container: {
+        marginTop: Platform.OS === 'ios' ? 10 : 0,
         alignItems: 'center',
         justifyContent: 'center',
     },

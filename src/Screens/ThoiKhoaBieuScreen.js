@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert } from 'react-native';
+import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, Platform } from 'react-native';
 
 const Address = require('../Icons/address.png')
 

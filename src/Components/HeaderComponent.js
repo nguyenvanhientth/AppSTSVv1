@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import {
-  View, Image, TouchableHighlight
+  View, Image, TouchableHighlight, Platform
 } from 'react-native';
 
 export default class HeaderComponent extends Component {
   render() {
     return (
       <View style={{
-        height: 40,
+        height: 70,
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingTop: Platform.OS === 'ios' ? 30 : 0,
+        backgroundColor: 'blue'
         }}
       >
         <TouchableHighlight

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert
+  StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, Platform
 } from 'react-native';
 
 const id = require('../Icons/IdIcon.png');
@@ -83,6 +83,7 @@ export default class ChangePassScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: Platform.OS === 'ios' ? 10 : 0,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
