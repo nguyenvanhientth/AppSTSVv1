@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import {
-  View, Image, TouchableHighlight
+  View, Image, TouchableHighlight,Text
 } from 'react-native';
 
 export default class HeaderComponent extends Component {
   render() {
+    const key = this.props.navigation.state ? this.props.navigation.state.key : '';
     return (
       <View style={{
         height: 70,
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: 'blue'
+        backgroundColor: '#58FAF4'
         }}
       >
         <TouchableHighlight
@@ -22,6 +23,7 @@ export default class HeaderComponent extends Component {
             source={require('../Icons/menuIcon.png')}
           />
         </TouchableHighlight>
+        <Text style = {{position: 'absolute', left: '20%',  fontWeight: '700', fontSize: 25,color: 'black',top: 35}}>{key}</Text>
       </View>
     );
   }

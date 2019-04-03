@@ -1,9 +1,16 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, Platform } from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent';
 
-import HeaderComponent from '../Components/HeaderComponent'
+const main = require('../Images/home.png')
 
 export default class MainScreen extends React.Component {
+    // static navigationOptions = {
+    //     title: 'Main',
+    //       drawerIcon: ({icon}) =>(
+    //         <Image source = {main} resizeMode="contain" style = {[styles.icon1]} />
+    //     )
+    //   };
     render(){
         return(
             <View>
@@ -30,5 +37,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize : 30
-    }
+    },
+    icon1: {
+        width: 25,
+        height: 25
+    },
 })

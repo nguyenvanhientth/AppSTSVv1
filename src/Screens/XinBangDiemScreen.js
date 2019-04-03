@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent'
 
 export default class XinBangDiemScreen extends Component{
     static navigationOptions = {
@@ -14,8 +15,11 @@ export default class XinBangDiemScreen extends Component{
 
     render(){
         return(
-            <View style={styles.container}>
-                <Text style={styles.text}>Xin Bảng Điểm!</Text>
+            <View>
+                <HeaderComponent {...this.props} ></HeaderComponent>
+                <View style={styles.container}>
+                    <Text style={styles.text}>Xin Bảng Điểm!</Text>
+                </View>
             </View>
         )
     }
@@ -23,7 +27,7 @@ export default class XinBangDiemScreen extends Component{
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Platform.OS === 'ios' ? 10 : 0,
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
     },

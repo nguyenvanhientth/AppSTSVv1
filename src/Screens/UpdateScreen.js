@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Platform} from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent'
 
 export default class UpdateScreen extends Component{
     static navigationOptions = {
@@ -14,8 +15,11 @@ export default class UpdateScreen extends Component{
 
     render(){
         return(
-            <View style={styles.container}>
-                <Text style={styles.text}>Screen update!</Text>
+            <View>
+                <HeaderComponent {...this.props} ></HeaderComponent>
+                <View style={styles.container}>
+                    <Text style={styles.text}>Screen update!</Text>
+                </View>
             </View>
         )
     }

@@ -1,9 +1,14 @@
+import React from 'react';
 import { createDrawerNavigator, createAppContainer } from 'react-navigation';
-
 import MainScreen from '../Screens/MainScreen';
 import ChangePassScreen from '../Screens/ChangePassScreen';
 import UpdateScreen from '../Screens/UpdateScreen';
-import XinGiayXNScreen from '../Screens/XinGiayXNScreen'
+import XinGiayXNScreen from '../Screens/XinGiayXNScreen';
+//import SiderBarComponent from '../Components/SideBarComponent';
+
+// const NavigationProfile = (props) => (
+//   <SiderBarComponent {...props}></SiderBarComponent>
+// )
 
 const MyDrawerNavigator = createDrawerNavigator({
     Home: {
@@ -18,6 +23,9 @@ const MyDrawerNavigator = createDrawerNavigator({
     XinGiayXN:{
       screen: XinGiayXNScreen,navigationOptions: {header: null} 
     }
+  },
+  {
+    //contentComponent: NavigationProfile // edit drawer stack
   }
 );
   

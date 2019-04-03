@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,Platform } from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent'
 
 const Address = require('../Icons/address.png')
 
 export default class XinGiayXNScreen extends Component {
-    static navigationOptions = {
-        header: null,
-      };
     constructor(props){
         super(props);
         state= {
@@ -22,6 +20,8 @@ export default class XinGiayXNScreen extends Component {
     }
     render(){
         return(
+            <View>
+                <HeaderComponent {...this.props}></HeaderComponent>
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
                     <Image style={styles.inputIcon} source={Address}/>
@@ -95,9 +95,10 @@ export default class XinGiayXNScreen extends Component {
                                onChangeText={(LyDo)=>this.setState({LyDo})}
                     />
                 </View>
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('registration')}>
+                <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onClickListener('registration')}>
                     <Text style={styles.loginText}>Đăng ký</Text>
                 </TouchableHighlight>
+            </View>
             </View>
         );
     }
@@ -105,22 +106,23 @@ export default class XinGiayXNScreen extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: Platform.OS === 'ios' ? 10 : 0,
-        flex : 1,
-        justifyContent : 'center',
-        alignItems : 'center',
-        backgroundColor : '#DCDCDC'
+        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
         borderRadius:30,
         borderBottomWidth: 1,
-        width:250,
+        width:'80%',
         height:45,
         marginBottom:10,
         flexDirection: 'row',
-        alignItems:'center'
+        alignItems:'center',
+        shadowOffset:{  width: 10,  height: 10,  },
+        shadowColor: 'grey',
+        shadowOpacity: 1.0,
     },
     inputIcon: {
         width:30,
@@ -142,9 +144,11 @@ const styles = StyleSheet.create({
         marginBottom:20,
         width:250,
         borderRadius:30,
-    },
-      loginButton: {
+        shadowOffset:{  width: 10,  height: 10,  },
+        shadowColor: 'grey',
+        shadowOpacity: 1.0,
         backgroundColor: "#00b5ec",
+        marginTop: 20
     },
       loginText: {
         color: 'white',

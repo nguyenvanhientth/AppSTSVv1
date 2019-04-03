@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, Platform } from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent';
 
 const Address = require('../Icons/address.png')
 
@@ -22,82 +23,85 @@ export default class ThoiKhoaBieuScreen extends Component {
     }
     render(){
         return(
-            <View style={styles.container}>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Địa Chỉ"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
+            <View>
+                <HeaderComponent {...this.props} ></HeaderComponent>
+                <View style={styles.container}>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Địa Chỉ"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(address)=>this.setState({address})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Chọn Tỉnh/Thành"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(address)=>this.setState({address})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Chọn Huyện/Quận"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(address)=>this.setState({address})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Chọn Xã/Phương"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(address)=>this.setState({address})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Nơi Sinh"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(address)=>this.setState({address})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Sinh Viên Khóa"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(khoa)=>this.setState({khoa})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Học Kì"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(HocKi)=>this.setState({HocKi})}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={Address}/>
+                        <TextInput style={styles.textInput}
+                                placeholder= "Lý Do"
+                                keyboardType="default"
+                                underlineColorAndroid='transparent'
+                                onChangeText={(LyDo)=>this.setState({LyDo})}
+                        />
+                    </View>
+                    <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('registration')}>
+                        <Text style={styles.loginText}>Đăng ký</Text>
+                    </TouchableHighlight>
                 </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Chọn Tỉnh/Thành"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Chọn Huyện/Quận"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Chọn Xã/Phương"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Nơi Sinh"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Sinh Viên Khóa"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(khoa)=>this.setState({khoa})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Học Kì"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(HocKi)=>this.setState({HocKi})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Lý Do"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(LyDo)=>this.setState({LyDo})}
-                    />
-                </View>
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('registration')}>
-                    <Text style={styles.loginText}>Đăng ký</Text>
-                </TouchableHighlight>
             </View>
         );
     }

@@ -1,9 +1,13 @@
 import { createStackNavigator, createAppContainer , createTabNavigator, createBottomTabNavigator} from "react-navigation";
-
+import React from 'react';
+import {Image} from 'react-native';
 import MyApp from '../Navigations/DrawerNavigator';
 import LoginStackNavigator from './LoginStackNavigator';
 import SplashScreen from '../Screens/SplashScreen';
 import ProfileScreen from '../Screens/ProfileScreen';
+
+const home = require('../Images/home.png');
+const profile = require('../Images/profile.png');
 
 const SplashStack = createStackNavigator(
   {
@@ -22,17 +26,29 @@ const tabProfile = createBottomTabNavigator(
   {
     Home: {
       screen: MyApp,
+      navigationOptions: {
+        tabBarLabel:" ",
+        tabBarIcon: ({ tintColor }) => (
+          <Image source = {home} style = {{height:40,width:40, marginTop: 25,paddingBottom:30}} />
+        )
+      },
     },
     Profile: {
       screen: stackProfile,
+      navigationOptions: {
+        tabBarLabel:" ",
+        tabBarIcon: ({ tintColor }) => (
+          <Image source = {profile} style = {{height:40,width:40, marginTop: 25,paddingBottom:30}} />
+        )
+      },
     }
   }
 )
 
 const RootStack = createStackNavigator(
   {
-    Login : {screen: LoginStackNavigator,navigationOptions: {header: null} },
     Main : {screen: tabProfile,navigationOptions: {header: null} },
+    Login : {screen: LoginStackNavigator,navigationOptions: {header: null} },
     Splash: {screen: SplashStack,navigationOptions: {header: null} }
     },
     {
