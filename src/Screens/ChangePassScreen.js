@@ -6,11 +6,13 @@ import HeaderComponent from '../Components/HeaderComponent';
 
 const id = require('../Icons/IdIcon.png');
 const pass = require('../Icons/PassWord.png');
+const change = require('../Images/change.png');
 
 export default class ChangePassScreen extends Component {
   static navigationOptions = {
-    header: null,
-    
+    drawerIcon: ({icon}) =>(
+      <Image source = {change} resizeMode="contain" style = {[styles.icon1]} />
+  )
 };
 
   constructor(props) {
@@ -133,5 +135,8 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: 'white',
-  }
+  },icon1: {
+    width: 25,
+    height: 25
+},
 });

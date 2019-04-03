@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
-import HeaderComponent from '../Components/HeaderComponent'
+import {View, Text, StyleSheet, Platform, Image} from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent';
+
+const update = require('../Images/update.png');
 
 export default class UpdateScreen extends Component{
     static navigationOptions = {
-        header: null,
+        drawerIcon: ({icon}) =>(
+            <Image source = {update} resizeMode="contain" style = {[styles.icon1]} />
+        )
       };
     constructor(props){
         super(props);
@@ -33,5 +37,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize : 30
-    }
+    },icon1: {
+        width: 25,
+        height: 25
+    },
 })

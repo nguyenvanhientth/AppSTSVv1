@@ -1,16 +1,16 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, Platform } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, Platform , Image} from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent';
 
 const main = require('../Images/home.png')
 
 export default class MainScreen extends React.Component {
-    // static navigationOptions = {
-    //     title: 'Main',
-    //       drawerIcon: ({icon}) =>(
-    //         <Image source = {main} resizeMode="contain" style = {[styles.icon1]} />
-    //     )
-    //   };
+    static navigationOptions = {
+         title: 'Home',
+           drawerIcon: ({icon}) =>(
+            <Image source = {main} resizeMode="contain" style = {[styles.icon1]} />
+        )
+       };
     render(){
         return(
             <View>

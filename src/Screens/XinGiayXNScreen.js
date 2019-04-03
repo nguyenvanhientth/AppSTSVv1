@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,Platform } from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent'
 
-const Address = require('../Icons/address.png')
+const Address = require('../Icons/address.png');
+const xinGiay = require('../Images/xinGiay.png');
 
 export default class XinGiayXNScreen extends Component {
+    static navigationOptions = {
+        drawerIcon: ({icon}) =>(
+            <Image source = {xinGiay} resizeMode="contain" style = {[styles.icon1]} />
+        )
+      };
     constructor(props){
         super(props);
         state= {
@@ -153,4 +159,8 @@ const styles = StyleSheet.create({
       loginText: {
         color: 'white',
     },
+    icon1:{
+        height:25,
+        width:25
+    }
 })

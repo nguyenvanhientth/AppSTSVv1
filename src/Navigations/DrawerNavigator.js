@@ -4,11 +4,11 @@ import MainScreen from '../Screens/MainScreen';
 import ChangePassScreen from '../Screens/ChangePassScreen';
 import UpdateScreen from '../Screens/UpdateScreen';
 import XinGiayXNScreen from '../Screens/XinGiayXNScreen';
-//import SiderBarComponent from '../Components/SideBarComponent';
+import SiderBarComponent from '../Components/SideBarComponent';
 
-// const NavigationProfile = (props) => (
-//   <SiderBarComponent {...props}></SiderBarComponent>
-// )
+const NavigationProfile = (props) => (
+  <SiderBarComponent {...props}></SiderBarComponent>
+ )
 
 const MyDrawerNavigator = createDrawerNavigator({
     Home: {
@@ -25,7 +25,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     }
   },
   {
-    //contentComponent: NavigationProfile // edit drawer stack
+    contentComponent: NavigationProfile // edit drawer stack
   }
 );
   
