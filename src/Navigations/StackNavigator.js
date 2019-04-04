@@ -42,6 +42,9 @@ const tabProfile = createBottomTabNavigator(
         )
       },
     }
+  },
+  {
+    initialRouteName: 'Home',
   }
 )
 

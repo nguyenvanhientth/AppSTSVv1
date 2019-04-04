@@ -25,6 +25,7 @@ const MyDrawerNavigator = createDrawerNavigator({
     }
   },
   {
+    initialRouteName: 'Home',
     contentComponent: NavigationProfile // edit drawer stack
   }
 );
