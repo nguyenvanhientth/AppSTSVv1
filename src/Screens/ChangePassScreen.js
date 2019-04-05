@@ -4,7 +4,6 @@ import {
 } from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent';
 
-const id = require('../Icons/IdIcon.png');
 const pass = require('../Icons/PassWord.png');
 const change = require('../Images/change.png');
 
@@ -18,15 +17,31 @@ export default class ChangePassScreen extends Component {
   constructor(props) {
     super(props);
     state = {
-      masv : '',
-      password: '',
+      OldPass: '',
+      NewPass: '',
+      ConPass: '',
+      loading: false
     }
   }
 
-  onClickListener = () => {
-    Alert.alert("Đổi Mật Khẩu Thành Công");
-    this.props.navigation.navigate('Home');
-  }
+  _onChaneOld = (OldPass) => {
+    this.setState({
+      OldPass,
+    })
+}
+
+_onChaneNew = (NewPass) => {
+  this.setState({NewPass})
+}
+
+_onChaneConfim = (ConPass) => {
+  this.setState({ConPass})
+}
+
+_onPressForgot = () => {
+  
+}
+  
   onClickCancel = () => {
     this.props.navigation.navigate('Home');
   }
@@ -37,21 +52,13 @@ export default class ChangePassScreen extends Component {
         <HeaderComponent {...this.props}></HeaderComponent>
       <View style={styles.container}>
         <View style={styles.inputContainer}>
-          <Image style={styles.inputIcon} source={id} />
-          <TextInput style={styles.inputs}
-              placeholder="Mã Sinh Viên"
-              keyboardType="number-pad"
-              //underlineColorAndroid='transparent'
-              onChangeText={(masv) => this.setState({masv})}/>
-        </View>
-        <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={pass}/>
           <TextInput style={styles.inputs}
               keyboardType="default"
               placeholder="Mật khẩu cũ"
               secureTextEntry={true}
               //nderlineColorAndroid='transparent'
-              onChangeText={(password) => this.setState({password})}/>
+              onChangeText={this._onChaneOld.bind(this)}/>
         </View>
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={pass}/>
@@ -60,7 +67,7 @@ export default class ChangePassScreen extends Component {
               placeholder="Mật khẩu mới"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
-              onChangeText={(password) => this.setState({password})}/>
+              onChangeText={this._onChaneNew.bind(this)}/>
         </View>
         <View style={styles.inputContainer}>
           <Image style={styles.inputIcon} source={pass}/>
@@ -69,10 +76,10 @@ export default class ChangePassScreen extends Component {
               placeholder="Xác nhận mật khẩu mới"
               secureTextEntry={true}
               underlineColorAndroid='transparent'
-              onChangeText={(password) => this.setState({password})}/>
+              onChangeText={this._onChaneConfim.bind(this)}/>
         </View>
         <View style={{ flexDirection:'row', }}>
-            <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onClickListener()}>
+            <TouchableHighlight style={[styles.buttonContainer]} onPress={this._onPressForgot.bind(this)}>
               <Text style={styles.loginText}>Đổi</Text>
             </TouchableHighlight>
             <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onClickCancel()}>
@@ -91,6 +98,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         //flexDirection: 'column',
+        backgroundColor: '#99FFFF',
   },
   inputContainer: {
       borderBottomColor: '#F5FCFF',
@@ -135,8 +143,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     color: 'white',
-  },icon1: {
+  },
+  icon1: {
     width: 25,
     height: 25
-},
+  },
 });

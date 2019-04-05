@@ -17,10 +17,17 @@ export default class LoginScreen extends Component {
         }
     }
 
-    onClickListener = ()=>{
-        Alert.alert("Đăng nhập thành công !");
-        this.props.navigation.navigate('Main');
-    }
+    _onChaneText = (masv) =>{
+        this.setState({masv});
+      }
+
+      _onChanePassWord = (password) =>{
+        this.setState({password}); 
+      }
+
+      _onPressLogin = () => {
+        this.props.navigation.navigate('Main')
+      }  
 
     forgotClick = ()=>{
         this.props.navigation.navigate('Forgot');
@@ -37,7 +44,7 @@ export default class LoginScreen extends Component {
                                placeholder= "Mã Sinh Viên"
                                keyboardType="number-pad"
                                underlineColorAndroid='transparent'
-                               onChangeText={(masv)=>this.setState({masv})}
+                               onChangeText={this._onChaneText.bind(this)}
                     />
                 </View>
 
@@ -48,11 +55,11 @@ export default class LoginScreen extends Component {
                                keyboardType="default"
                                secureTextEntry={true}
                                underlineColorAndroid='transparent'
-                               onChangeText={(password)=>this.setState({password})}
+                               onChangeText={this._onChanePassWord.bind(this)}
                     />
                 </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
+                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this._onPressLogin.bind(this)}>
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableHighlight>
 
@@ -71,7 +78,7 @@ const styles = StyleSheet.create({
         flex : 1,
         justifyContent : 'center',
         alignItems : 'center',
-        backgroundColor : '#DCDCDC'
+        backgroundColor : '#99FFFF'
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
