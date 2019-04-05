@@ -14,14 +14,14 @@ export default class ThoiKhoaBieuScreen extends Component{
     constructor(props){
         super(props);
         this.state = {
-            tableHead: ['Tiết','Sáng','Phòng','Chiều','Phòng'],
+            tableHead: [' Tiết ','Sáng','Phòng','Chiều','Phòng'],
             tableTitle: ['Tiết 1', 'Tiết 2', 'Tiết 3', 'Tiết 4','Tiết 5'],
             tableData: [
-                ['1','2','3','4','5'],
-                ['6','7','8','9','0'],
-                ['1','1','1','1','1'],
-                ['1','1','1','1','1'],
-                ['1','1','1','1','1'],
+                ['Ly','2','Hoa','4'],
+                ['','7','Toan','0'],
+                ['','','',''],
+                ['','','',''],
+                ['','','',''],
             ]
         }
     }
@@ -32,10 +32,10 @@ export default class ThoiKhoaBieuScreen extends Component{
         <HeaderComponent {...this.props}></HeaderComponent>
         <View style={styles.container}>
         <Table>
-          <Row data={state.tableHead} flexArr={[1, 2, 1, 1]} style={styles.head} textStyle={styles.text}/>
+          <Row data={this.state.tableHead} flexArr={[1, 2, 1, 2,1]} style={styles.head} textStyle={styles.text}/>
           <TableWrapper style={styles.wrapper}>
-            <Col data={state.tableTitle} style={styles.title} heightArr={[28,28]} textStyle={styles.text}/>
-            <Rows data={state.tableData} flexArr={[2, 1, 1]} style={styles.row} textStyle={styles.text}/>
+            <Col data={this.state.tableTitle} style={styles.title}  textStyle={styles.text}/>
+            <Rows data={this.state.tableData} flexArr={[ 2, 1, 2,1]} style={styles.row} textStyle={styles.text}/>
           </TableWrapper>
         </Table>
       </View>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
     head: {  height: 40,  backgroundColor: '#f1f8ff'  },
     wrapper: { flexDirection: 'row' },
-    title: { flex: 1, backgroundColor: '#f6f8fa' },
+    title: { flex: 1, backgroundColor: '#f6f8fa', height: 140 },
     row: {  height: 28  },
     text: { textAlign: 'center' },
     icon1: {

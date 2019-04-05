@@ -4,6 +4,9 @@ import {
 } from 'react-native';
 
 export default class HeaderComponent extends Component {
+  componentDidMount(){
+    this.props.navigation.closeDrawer();
+  }
   render() {
     const key = this.props.navigation.state ? this.props.navigation.state.key : '';
     return (

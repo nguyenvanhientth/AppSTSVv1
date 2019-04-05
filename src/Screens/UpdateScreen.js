@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Platform, Image, TextInput, TouchableHighlight, TouchableOpacity,ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Platform, Image, TextInput, TouchableHighlight, TouchableOpacity} from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent';
 import ReactNativePickerModule from 'react-native-picker-module';
 
@@ -65,6 +66,11 @@ export default class UpdateScreen extends Component{
         this.getdata();
     }
 
+    }
+    componentDidMount(){
+        this.getdata();
+    }
+
     getdata() {
         var display = [];
         // TODO: Json File data 
@@ -79,7 +85,11 @@ export default class UpdateScreen extends Component{
             if (len > 0) {
             for (let i = 0; i < len; i++) {
                 var data = this.tinhArr[i];
+
                 display.push(data.name);
+
+                display.push(data.name_with_type);
+
             }
             }
             this.setState({
@@ -98,6 +108,7 @@ export default class UpdateScreen extends Component{
             if (len > 0) {
               for (let i = 0; i < len; i++) {
                 var data1 = this.tinhArr[i];
+
                 if (data1.name === text) {
                     var data = Object.keys(huyen).map((name) => {
                         if (huyen[name].parent_code === data1.code) {
@@ -106,6 +117,16 @@ export default class UpdateScreen extends Component{
                         }
                         return (
                           <Text>Type of name: {huyen[name].name}</Text>
+
+                if (data1.name_with_type === text) {
+                    var data = Object.keys(huyen).map((name) => {
+                        if (huyen[name].parent_code === data1.code) {
+                            this.huyenArr.push(huyen[name]);
+                            display.push(huyen[name].name_with_type);
+                        }
+                        return (
+                          <Text>Type of name: {huyen[name].name_with_type}</Text>
+
                         )
                         
                     });
@@ -137,6 +158,7 @@ export default class UpdateScreen extends Component{
             if (len > 0) {
               for (let i = 0; i < len; i++) {
                 var data1 = this.huyenArr[i];
+
                 if (data1.name === text) {
                     var data = Object.keys(xa).map((name) => {
                         if (xa[name].parent_code === data1.code) {
@@ -144,6 +166,15 @@ export default class UpdateScreen extends Component{
                         }
                         return (
                           <Text>Type of name: {xa[name].name}</Text>
+
+                if (data1.name_with_type === text) {
+                    var data = Object.keys(xa).map((name) => {
+                        if (xa[name].parent_code === data1.code) {
+                            display.push(xa[name].name_with_type)
+                        }
+                        return (
+                          <Text>Type of name: {xa[name].name_with_type}</Text>
+
                         )
                         
                     });
@@ -160,7 +191,11 @@ export default class UpdateScreen extends Component{
     }
     render() {
         return(
+
             <ScrollView>
+
+            <View>
+
                 <HeaderComponent {...this.props}></HeaderComponent>
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
@@ -169,7 +204,11 @@ export default class UpdateScreen extends Component{
                                placeholder= "Họ Tên"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
+
                                onChangeText={this._onFullName.bind(this)}
+
+                               onChangeText={(address)=>this.setState({address})}
+
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -178,7 +217,11 @@ export default class UpdateScreen extends Component{
                                placeholder= "Dân Tộc"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
+
                                onChangeText={this._onNation.bind(this)}
+
+                               onChangeText={(address)=>this.setState({address})}
+
                     />
                 </View>
                 <View style={styles.inputContainer}>
@@ -187,6 +230,7 @@ export default class UpdateScreen extends Component{
                                placeholder= "Tôn giáo"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
+
                                onChangeText={this._onReligion.bind(this)}
                     />
                 </View>
@@ -263,10 +307,89 @@ export default class UpdateScreen extends Component{
                 </View>
                 <View style={styles.inputContainer}>
                     <Image style={styles.inputIcon} source={nganhHoc}/>
+
+                               onChangeText={(address)=>this.setState({address})}
+                    />
+                </View>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef.show()}}>
+                    <Image style={styles.inputIcon} source={Role}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef = e}
+                        value={this.state.valueRole}
+                        title={"Select Role"}
+                        items={this.state.Role}
+                        onValueChange={(i) => {
+                            this.setState({
+                            valueRole: i
+                            })
+                    }}/>
+                    <Text style = {styles.text}>{this.state.Role[this.state.valueRole]}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef1.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef1 = e}
+                        value={this.state.valueTinh}
+                        title={"Select City"}
+                        items={this.state.tinhList}
+                        onValueChange={(i) => {
+                            this.onChangeText(this.state.tinhList[i]);
+                            this.setState({
+                            valueTinh: i,
+                            nameTinh: this.state.tinhList[i]
+                            })
+                        }}
+                    />
+                    <Text style = {styles.text}>{this.state.nameTinh}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef2.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef2 = e}
+                        value={this.state.valueHuyen}
+                        title={"Select Quan/Huyen"}
+                        items={this.state.huyenList}
+                        onValueChange={(i) => {
+                            this.onChangeHuyen(this.state.huyenList[i])
+                            this.setState({
+                            valueHuyen: i,
+                            nameHuyen: this.state.huyenList[i]
+                            })
+                    }}/>
+                    <Text style = {styles.text}>{this.state.nameHuyen}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef3.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef3 = e}
+                        value={this.state.valueXa}
+                        title={"Select Xa/Phuong/T.Tran"}
+                        items={this.state.xaList}
+                        onValueChange={(i) => {
+                            this.setState({
+                            valueXa: i,
+                            nameXa: this.state.xaList[i]
+                            })
+                    }}/>
+                    <Text style = {styles.text}>{this.state.nameXa}</Text>
+                </TouchableOpacity>
+                <View style={styles.inputContainer}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <TextInput style={styles.textInput}
+                               placeholder= "Thời gian nhập học"
+                               keyboardType="default"
+                               underlineColorAndroid='transparent'
+                               onChangeText={(address)=>this.setState({address})}
+                    />
+                </View>
+                <View style={styles.inputContainer}>
+                    <Image style={styles.inputIcon} source={Address}/>
+
                     <TextInput style={styles.textInput}
                                placeholder= "Ngành học"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
+
                                onChangeText={this._onSchool.bind(this)}
                     />
                 </View>
@@ -275,6 +398,16 @@ export default class UpdateScreen extends Component{
                 </TouchableHighlight>
             </View>
             </ScrollView>
+
+                               onChangeText={(address)=>this.setState({address})}
+                    />
+                </View>
+                <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onChange()}>
+                    <Text style={styles.loginText}>Change</Text>
+                </TouchableHighlight>
+            </View>
+            </View>
+
         );
     }
 }
@@ -284,8 +417,12 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+
         paddingBottom: 40,
         backgroundColor: '#99FFFF',
+
+        paddingBottom: 40
+
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
