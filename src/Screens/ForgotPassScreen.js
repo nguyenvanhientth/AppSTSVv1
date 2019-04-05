@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert } from 'react-native';
+import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,TouchableOpacity } from 'react-native';
 
 const id = require('../Icons/IdIcon.png');
 const email = require('../Icons/emailIcon.png');
@@ -12,14 +12,23 @@ export default class FogotPassScreen extends Component {
         super(props);
         state= {
             masv : '',
-            email : ''
+            Email : ''
         }
     }
 
-    onClickListener= ()=>{
-        Alert.alert("Lấy lại mật khẩu thành công !","Một mật khẩu tạm thời đã được gửi về Email cho bạn. Vui lòng kiểm tra và đăng nhập lại với mật khẩu mới !");
-        this.props.navigation.navigate('Login');
-    }
+    _onChaneText = (masv) => {
+      this.setState({
+        masv,
+      })
+  }
+
+  _onChaneEmail = (Email) => {
+    this.setState({Email})
+  }
+
+  _onPressForgot = () => {
+
+  }
 
     render(){
         return(
@@ -30,7 +39,7 @@ export default class FogotPassScreen extends Component {
                                placeholder= "Mã Sinh Viên"
                                keyboardType= "number-pad"
                                underlineColorAndroid='transparent'
-                               onChangeText={(masv)=> this.setState({masv})}
+                               onChangeText={this._onChaneText.bind(this)}
                     />
                 </View>
 
@@ -40,13 +49,18 @@ export default class FogotPassScreen extends Component {
                                placeholder= "Email"
                                keyboardType= "email-address"
                                underlineColorAndroid='transparent'
-                               onChangeText={(email)=> this.setState({email})}
+                               onChangeText={this._onChaneEmail.bind(this)}
                     />
                 </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this.onClickListener()}>
+                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this._onPressForgot.bind(this)}>
                     <Text style={styles.loginText}>Request</Text>
                 </TouchableHighlight>
+                <TouchableOpacity activeOpacity={.5} onPress={() => this.props.navigation.navigate('Login')}>
+                        <View >
+                        <Text style={styles.cancle}> Go back login! </Text>        
+                        </View>      
+                    </TouchableOpacity> 
             </View>
         );
     }
@@ -57,7 +71,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#DCDCDC',
+      backgroundColor : '#99FFFF'
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
@@ -96,6 +110,11 @@ const styles = StyleSheet.create({
     },
     loginText: {
       color: 'white',
-    }
+    },
+    cancle:{
+      color:'#0404B4',
+      backgroundColor:"transparent",
+      textAlign: 'center',
+    },
   });
   

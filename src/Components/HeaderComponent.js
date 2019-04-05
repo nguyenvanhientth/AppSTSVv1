@@ -4,6 +4,9 @@ import {
 } from 'react-native';
 
 export default class HeaderComponent extends Component {
+  componentDidMount(){
+    this.props.navigation.closeDrawer();
+  }
   render() {
     const key = this.props.navigation.state ? this.props.navigation.state.key : '';
     return (
@@ -12,7 +15,7 @@ export default class HeaderComponent extends Component {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#58FAF4'
+        backgroundColor: '#29ACE4'
         }}
       >
         <TouchableHighlight
@@ -23,7 +26,7 @@ export default class HeaderComponent extends Component {
             source={require('../Icons/menuIcon.png')}
           />
         </TouchableHighlight>
-        <Text style = {{position: 'absolute', left: '20%',  fontWeight: '700', fontSize: 25,color: 'black',top: 35}}>{key}</Text>
+        <Text style = {{position: 'absolute', left: '20%',  fontWeight: '700', fontSize: 25,color: 'black',top: 30}}>{key}</Text>
       </View>
     );
   }

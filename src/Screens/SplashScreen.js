@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
+
+const logo = require('../Images/Logo_spkt.png')
 
 export default class SplashScreen extends React.Component {
     performTimeConsumingTask = async() => {
@@ -25,24 +27,22 @@ export default class SplashScreen extends React.Component {
       render() {
         return (
           <View style={styles.viewStyles}>
-            <Text style={styles.textStyles}>
-              Logo Image
-            </Text>
+            <Image style={styles.imageStyles} source={logo}/>
           </View>
         );
       }
     }
     
-    const styles = {
+    const styles = StyleSheet.create({
       viewStyles: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'orange'
+        backgroundColor: '#00FFFF'
       },
-      textStyles: {
-        color: 'white',
-        fontSize: 40,
-        fontWeight: 'bold'
+      imageStyles: {
+        width : 300,
+        height : 300
       }
-    }
+      
+    })

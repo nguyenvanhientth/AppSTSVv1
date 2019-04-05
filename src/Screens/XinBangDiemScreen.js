@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Platform} from 'react-native';
+import {View, Text, StyleSheet, Image, Platform} from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent'
+
+const xinGiay = require('../Images/xinGiay.png');
 
 export default class XinBangDiemScreen extends Component{
     static navigationOptions = {
-        header: null,
+        drawerIcon: ({icon}) =>(
+            <Image source = {xinGiay} resizeMode="contain" style = {[styles.icon1]} />
+        )
       };
     constructor(props){
         super(props);
@@ -33,5 +37,9 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize : 30
-    }
+    },
+    icon1:{
+        height:25,
+        width:25
+    },
 })

@@ -12,6 +12,7 @@
     "react-native": "0.59.2",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-picker-module": "^0.1.2",
+    "react-native-table-component": "^1.2.0",
     "react-navigation": "^3.6.0"
   },
   "devDependencies": {
