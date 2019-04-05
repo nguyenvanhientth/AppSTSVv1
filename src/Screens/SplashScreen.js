@@ -1,29 +1,35 @@
 import React, {Component} from 'react';
-import {View, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet,AsyncStorage} from 'react-native';
 
-const logo = require('../Images/Logo_spkt.png')
+const logo = require('../Images/Logo_spkt.png');
+var STORAGE_KEY = '';
 
 export default class SplashScreen extends React.Component {
     performTimeConsumingTask = async() => {
         return new Promise((resolve) =>
           setTimeout(
             () => { resolve('result') },
-            2000
+            5000
           )
         )
       }
-    
-      async componentDidMount() {
-        // Preload data from an external API
-        // Preload data using AsyncStorage
-        const data = await this.performTimeConsumingTask();
-    
-        if (data !== null) {
-          this.props.navigation.navigate('Main');
-        }
-        this.props.navigation.navigate('Login');
-      }
-    
+      componentDidMount(){
+        AsyncStorage.getItem(STORAGE_KEY).then((user_data_json) => {
+            let token = user_data_json;   
+            //console.warn(token)
+            if(token === null){
+              var { navigate } = this.props.navigation;
+              navigate('Login');
+              this.setState({
+                  loading: false
+              })
+            }
+            else{
+    //-----------get data async from helper----------------------
+              this.props.navigation.navigate('Main');
+            }    
+        })
+    }
       render() {
         return (
           <View style={styles.viewStyles}>

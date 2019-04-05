@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, Platform , Image} from 'react-native';
+import { Text, View, ScrollView, StyleSheet, AsyncStorage , Image} from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent';
 
-const main = require('../Images/home.png')
+const main = require('../Images/home.png');
+var STORAGE_KEY = 'key_access_token';
 
 export default class MainScreen extends React.Component {
     static navigationOptions = {
@@ -10,7 +11,23 @@ export default class MainScreen extends React.Component {
            drawerIcon: ({icon}) =>(
             <Image source = {main} resizeMode="contain" style = {[styles.icon1]} />
         )
-       };
+    };
+    componentDidMount(){
+        AsyncStorage.getItem(STORAGE_KEY).then((user_data_json) => {
+            let token = user_data_json;   
+            console.warn(token)
+            if(token === null){
+              var { navigate } = this.props.navigation;
+              navigate('Login');
+              this.setState({
+                  loading: false
+              })
+            }
+            else{
+    //-----------get data async from helper----------------------
+            }    
+        })
+    }
     render(){
         return(
             <View>

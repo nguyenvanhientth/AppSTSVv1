@@ -4,13 +4,9 @@ import HeaderComponent from '../Components/HeaderComponent';
 import ReactNativePickerModule from 'react-native-picker-module';
 
 const update = require('../Images/update.png');
-const Time = require('../Icons/timeIcon.png')
 const nganhHoc = require('../Icons/nganhHocIcon.png')
 const Address = require('../Icons/address.png');
-const Role = require('../Icons/role.png');
 const name = require('../Icons/name.png');
-const dantoc = require('../Icons/dantoc.jpg');
-const tongiao = require('../Icons/tongiao.png');
 const tinh = require('../access/Tinh.json');
 const huyen = require('../access/quan_huyen.json');
 const xa = require('../access/xa_phuong.json');
@@ -59,7 +55,7 @@ export default class XinGiayXNScreen extends Component{
         var data = Object.keys(tinh).map((name) => {
         this.tinhArr.push(tinh[name]);
         return (
-          <Text>Type of name: {tinh[name].name}</Text>
+          <Text>Type of name: {tinh[name].name_with_type}</Text>
         )
       }) 
         if(this.tinhArr){
@@ -67,7 +63,7 @@ export default class XinGiayXNScreen extends Component{
             if (len > 0) {
             for (let i = 0; i < len; i++) {
                 var data = this.tinhArr[i];
-                display.push(data.name);
+                display.push(data.name_with_type);
             }
             }
             this.setState({
@@ -86,14 +82,14 @@ export default class XinGiayXNScreen extends Component{
             if (len > 0) {
               for (let i = 0; i < len; i++) {
                 var data1 = this.tinhArr[i];
-                if (data1.name === text) {
+                if (data1.name_with_type === text) {
                     var data = Object.keys(huyen).map((name) => {
                         if (huyen[name].parent_code === data1.code) {
                             this.huyenArr.push(huyen[name]);
-                            display.push(huyen[name].name);
+                            display.push(huyen[name].name_with_type);
                         }
                         return (
-                          <Text>Type of name: {huyen[name].name}</Text>
+                          <Text>Type of name: {huyen[name].name_with_type}</Text>
                         )
                         
                     });
@@ -125,13 +121,13 @@ export default class XinGiayXNScreen extends Component{
             if (len > 0) {
               for (let i = 0; i < len; i++) {
                 var data1 = this.huyenArr[i];
-                if (data1.name === text) {
+                if (data1.name_with_type === text) {
                     var data = Object.keys(xa).map((name) => {
                         if (xa[name].parent_code === data1.code) {
-                            display.push(xa[name].name)
+                            display.push(xa[name].name_with_type)
                         }
                         return (
-                          <Text>Type of name: {xa[name].name}</Text>
+                          <Text>Type of name: {xa[name].name_with_type}</Text>
                         )
                         
                     });
@@ -148,9 +144,10 @@ export default class XinGiayXNScreen extends Component{
     }
     render() {
         return(
-            <ScrollView>
+            <View>
                 <HeaderComponent {...this.props}></HeaderComponent>
             <View style={styles.container}>
+            <ScrollView style = {{paddingTop: '30%', width: '80%'}}>
                 <View style={styles.inputContainer}>
                     <Image style={styles.inputIcon} source={name}/>
                     <TextInput style={styles.textInput}
@@ -208,23 +205,6 @@ export default class XinGiayXNScreen extends Component{
                     }}/>
                     <Text style = {styles.text}>{this.state.nameXa}</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef1.show()}}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <ReactNativePickerModule
-                        pickerRef={e => this.pickerRef1 = e}
-                        value={this.state.valueTinh}
-                        title={"Nơi sinh"}
-                        items={this.state.tinhList}
-                        onValueChange={(i) => {
-                            this.onChangeText(this.state.tinhList[i]);
-                            this.setState({
-                            valueTinh: i,
-                            nameTinh: this.state.tinhList[i]
-                            })
-                        }}
-                    />
-                    <Text style = {styles.text}>{this.state.nameTinh}</Text>
-                </TouchableOpacity>
                 <View style={styles.inputContainer}>
                     <Image style={styles.inputIcon} source={nganhHoc}/>
                     <TextInput style={styles.textInput}
@@ -237,8 +217,9 @@ export default class XinGiayXNScreen extends Component{
                 <TouchableHighlight style={[styles.buttonContainer]} onPress={this._onPressConfirm.bind(this)}>
                     <Text style={styles.loginText}>Confirm</Text>
                 </TouchableHighlight>
+                </ScrollView>
             </View>
-            </ScrollView>
+            </View>
         );
     }
 }
@@ -257,7 +238,7 @@ const styles = StyleSheet.create({
         padding:10,
         borderRadius:30,
         borderBottomWidth: 1,
-        width:'80%',
+        width:'100%',
         height:45,
         marginBottom:10,
         flexDirection: 'row',
@@ -284,7 +265,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom:20,
-        width:250,
+        width:'100%',
         borderRadius:30,
         shadowOffset:{  width: 10,  height: 10,  },
         shadowColor: 'grey',

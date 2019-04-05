@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, Platform } from 'react-native';
+import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, ActivityIndicator,AsyncStorage } from 'react-native';
+import env from '../environment/env';
 
+const BASE_URL = env;
 const id = require('../Icons/IdIcon.png');
-const password = require('../Icons/PassWord.png')
-const logo = require('../Images/Logo_spkt.png')
+const password = require('../Icons/PassWord.png');
+const logo = require('../Images/Logo_spkt.png');
+
+var STORAGE_KEY = 'key_access_token';
 
 export default class LoginScreen extends Component {
     static navigationOptions = {
@@ -11,9 +15,11 @@ export default class LoginScreen extends Component {
       };
     constructor(props){
         super(props);
-        state={
+        this.state={
             masv: '',
             password: '',
+            status: false,
+            loading: false
         }
     }
 
@@ -25,8 +31,53 @@ export default class LoginScreen extends Component {
         this.setState({password}); 
       }
 
-      _onPressLogin = () => {
-        this.props.navigation.navigate('Main')
+    _onPressLogin = () => {
+        let serviceUrl =  BASE_URL + "Account/login";
+        let userName = this.state.masv;
+        let password = this.state.password;
+        var access_token = '';
+      if(userName.length === 0 || password.length === 0){
+        alert('Ban chua nhap day du! ')
+      }
+      else{
+        this.setState({loading: true})     
+        fetch(serviceUrl,{
+          method: "POST",  
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+              body: JSON.stringify({
+                'UserName' : userName,
+                'PassWord' :password
+              })
+        })
+          .then((response) => response.json())
+          .then((responseJSON) => {      
+              //console.warn('asdasd',JSON.stringify(responseJSON.token)) ; 
+              var { navigate } = this.props.navigation;
+               access_token = responseJSON.token; 
+               //console.warn('access_token',access_token) ; 
+               if(access_token !=null){
+                    try {
+                        AsyncStorage.setItem(STORAGE_KEY, access_token);
+                        navigate('Main');
+                    } catch (error) {
+                        console.log('AsyncStorage error: ' + error.message);
+                    };
+                    this.setState({loading:false});
+                }
+                else{
+                    this.setState({loading:false})
+                    Alert.alert('Login failure');
+                 }  
+          })
+          .catch((error) => {
+            Alert.alert('Login failure');
+            this.setState({loading:false})
+            //console.warn('asdsad',error);
+          }); 
+      }
       }  
 
     forgotClick = ()=>{
@@ -34,6 +85,14 @@ export default class LoginScreen extends Component {
     }
 
     render(){
+        if (this.state.loading) {
+            return(
+                <View style = {{flex: 1,justifyContent:'center',backgroundColor: '#ECF8FB'}}>
+                    <ActivityIndicator size='large' color="#0000ff" />
+                </View>
+                )
+            } 
+        else {
         return(
             <View style={styles.container}>
                 <Image style={styles.logo} source={logo}/>
@@ -59,7 +118,7 @@ export default class LoginScreen extends Component {
                     />
                 </View>
 
-                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={this._onPressLogin.bind(this)}>
+                <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={()=>this._onPressLogin()}>
                     <Text style={styles.loginText}>Login</Text>
                 </TouchableHighlight>
 
@@ -71,6 +130,7 @@ export default class LoginScreen extends Component {
             </View>
         );
     }
+}
 }
 
 const styles = StyleSheet.create({

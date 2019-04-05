@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
 import { DrawerItems } from 'react-navigation';
 
+var STORAGE_KEY = 'key_access_token';
 const logout = require('../Images/logout.png');
 var profile = require('../Images/profile.png');
 
@@ -40,6 +41,7 @@ export default class SiderBarComponent extends Component {
 
     signOut = ()=>{
         //AsyncStorage.clear();
+        AsyncStorage.removeItem(STORAGE_KEY)
         setTimeout(()=>{
             this.props.navigation.navigate('Login');
         }, 500)
