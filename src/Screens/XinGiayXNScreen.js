@@ -1,101 +1,244 @@
-import React, { Component } from 'react';
-import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,Platform,ScrollView } from 'react-native';
-import HeaderComponent from '../Components/HeaderComponent'
+import React, {Component} from 'react';
+import {View, Text, StyleSheet, Platform, Image, TextInput, TouchableHighlight, TouchableOpacity,ScrollView} from 'react-native';
+import HeaderComponent from '../Components/HeaderComponent';
+import ReactNativePickerModule from 'react-native-picker-module';
 
+const update = require('../Images/update.png');
+const Time = require('../Icons/timeIcon.png')
+const nganhHoc = require('../Icons/nganhHocIcon.png')
 const Address = require('../Icons/address.png');
-const xinGiay = require('../Images/xinGiay.png');
+const Role = require('../Icons/role.png');
+const name = require('../Icons/name.png');
+const dantoc = require('../Icons/dantoc.jpg');
+const tongiao = require('../Icons/tongiao.png');
+const tinh = require('../access/Tinh.json');
+const huyen = require('../access/quan_huyen.json');
+const xa = require('../access/xa_phuong.json');
 
-export default class XinGiayXNScreen extends Component {
+export default class XinGiayXNScreen extends Component{
     static navigationOptions = {
         drawerIcon: ({icon}) =>(
-            <Image source = {xinGiay} resizeMode="contain" style = {[styles.icon1]} />
+            <Image source = {update} resizeMode="contain" style = {[styles.icon1]} />
         )
       };
     constructor(props){
         super(props);
-        state= {
-            address: '',
-            HocKi: '',
-            LyDo: ''
+        this.state = {
+            fullName: '',
+            yearStudent:'',
+            valueRole: null,
+            Role: ['Male','Female'],
+            valueTinh: null,
+            nameTinh:'Select Tinh/TP',
+            tinhList: [],
+            valueHuyen: null,
+            nameHuyen:'Select Quan/Huyen',
+            huyenList:[],
+            valueXa:null,
+            nameXa:'Select Xa/Phuong',
+            xaList:[]
         }
+        this.tinhArr = [];
+        this.huyenArr = [];
     }
-    onClickListener = ()=>{
-        Alert.alert("Đăng nhập thành công !");
-        this.props.navigation.navigate('Main');
+    _onAddRess = (addRess) =>{
+        this.setState({addRess});
+      }
+    _onYearStudent = (yearStudent) =>{
+        this.setState({yearStudent});
+      }
+    _onPressConfirm = () => {}
+
+    componentDidMount(){
+        this.getdata();
     }
-    render(){
+
+    getdata() {
+        var display = [];
+        // TODO: Json File data 
+        var data = Object.keys(tinh).map((name) => {
+        this.tinhArr.push(tinh[name]);
+        return (
+          <Text>Type of name: {tinh[name].name}</Text>
+        )
+      }) 
+        if(this.tinhArr){
+            var len = this.tinhArr.length;
+            if (len > 0) {
+            for (let i = 0; i < len; i++) {
+                var data = this.tinhArr[i];
+                display.push(data.name);
+            }
+            }
+            this.setState({
+            tinhList: display  
+            });
+        }   
+    }
+    onChangeText=(text)=>{
+        var display= [];
+        this.setState({
+            nameHuyen: 'Select Huyen',
+            nameXa: 'Select Xa'
+        })
+        if(this.tinhArr){
+            var len = this.tinhArr.length;
+            if (len > 0) {
+              for (let i = 0; i < len; i++) {
+                var data1 = this.tinhArr[i];
+                if (data1.name === text) {
+                    var data = Object.keys(huyen).map((name) => {
+                        if (huyen[name].parent_code === data1.code) {
+                            this.huyenArr.push(huyen[name]);
+                            display.push(huyen[name].name);
+                        }
+                        return (
+                          <Text>Type of name: {huyen[name].name}</Text>
+                        )
+                        
+                    });
+                }
+              }
+            }
+            // if(this.huyenArr){
+            //     var len = this.huyenArr.length;
+            //     if (len > 0) {
+            //     for (let i = 0; i < len; i++) {
+            //         var data = this.huyenArr[i];
+            //         display.push(data.name);
+            //     }
+            //     //console.warn(display)
+            //     }
+                this.setState({
+                huyenList: display  
+                });
+            // }   
+        }  
+    }
+    onChangeHuyen =(text)=>{
+        var display= [];
+        this.setState({
+            nameXa: 'Select Xa'
+        })
+        if(this.huyenArr){
+            var len = this.huyenArr.length;
+            if (len > 0) {
+              for (let i = 0; i < len; i++) {
+                var data1 = this.huyenArr[i];
+                if (data1.name === text) {
+                    var data = Object.keys(xa).map((name) => {
+                        if (xa[name].parent_code === data1.code) {
+                            display.push(xa[name].name)
+                        }
+                        return (
+                          <Text>Type of name: {xa[name].name}</Text>
+                        )
+                        
+                    });
+                }
+              }
+            }
+            this.setState({
+                xaList: display,
+            })
+        }  
+    }
+    onChange = () => {
+        alert('click');
+    }
+    render() {
         return(
-            <View>
+            <ScrollView>
                 <HeaderComponent {...this.props}></HeaderComponent>
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
+                    <Image style={styles.inputIcon} source={name}/>
                     <TextInput style={styles.textInput}
-                               placeholder= "Địa Chỉ"
+                               placeholder= "Địa chỉ"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
+                               onChangeText={this._onAddRess.bind(this)}
                     />
                 </View>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef1.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef1 = e}
+                        value={this.state.valueTinh}
+                        title={"Select City"}
+                        items={this.state.tinhList}
+                        onValueChange={(i) => {
+                            this.onChangeText(this.state.tinhList[i]);
+                            this.setState({
+                            valueTinh: i,
+                            nameTinh: this.state.tinhList[i]
+                            })
+                        }}
+                    />
+                    <Text style = {styles.text}>{this.state.nameTinh}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef2.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef2 = e}
+                        value={this.state.valueHuyen}
+                        title={"Select Quan/Huyen"}
+                        items={this.state.huyenList}
+                        onValueChange={(i) => {
+                            this.onChangeHuyen(this.state.huyenList[i])
+                            this.setState({
+                            valueHuyen: i,
+                            nameHuyen: this.state.huyenList[i]
+                            })
+                    }}/>
+                    <Text style = {styles.text}>{this.state.nameHuyen}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef3.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef3 = e}
+                        value={this.state.valueXa}
+                        title={"Select Xa/Phuong/T.Tran"}
+                        items={this.state.xaList}
+                        onValueChange={(i) => {
+                            this.setState({
+                            valueXa: i,
+                            nameXa: this.state.xaList[i]
+                            })
+                    }}/>
+                    <Text style = {styles.text}>{this.state.nameXa}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.inputContainer} onPress={() => {this.pickerRef1.show()}}>
+                    <Image style={styles.inputIcon} source={Address}/>
+                    <ReactNativePickerModule
+                        pickerRef={e => this.pickerRef1 = e}
+                        value={this.state.valueTinh}
+                        title={"Nơi sinh"}
+                        items={this.state.tinhList}
+                        onValueChange={(i) => {
+                            this.onChangeText(this.state.tinhList[i]);
+                            this.setState({
+                            valueTinh: i,
+                            nameTinh: this.state.tinhList[i]
+                            })
+                        }}
+                    />
+                    <Text style = {styles.text}>{this.state.nameTinh}</Text>
+                </TouchableOpacity>
                 <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
+                    <Image style={styles.inputIcon} source={nganhHoc}/>
                     <TextInput style={styles.textInput}
-                               placeholder= "Chọn Tỉnh/Thành"
-                               keyboardType="default"
+                               placeholder= "Sinh viên năm"
+                               keyboardType="number-pad"
                                underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
+                               onChangeText={this._onYearStudent.bind(this)}
                     />
                 </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Chọn Huyện/Quận"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Chọn Xã/Phương"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Nơi Sinh"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(address)=>this.setState({address})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Học Kì"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(HocKi)=>this.setState({HocKi})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
-                               placeholder= "Lý Do"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(LyDo)=>this.setState({LyDo})}
-                    />
-                </View>
-                <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onClickListener('registration')}>
-                    <Text style={styles.loginText}>Đăng ký</Text>
+                <TouchableHighlight style={[styles.buttonContainer]} onPress={this._onPressConfirm.bind(this)}>
+                    <Text style={styles.loginText}>Confirm</Text>
                 </TouchableHighlight>
             </View>
-            </View>
+            </ScrollView>
         );
     }
 }
@@ -105,11 +248,13 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        paddingBottom: 40,
         backgroundColor: '#99FFFF',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
+        padding:10,
         borderRadius:30,
         borderBottomWidth: 1,
         width:'80%',
@@ -150,8 +295,12 @@ const styles = StyleSheet.create({
       loginText: {
         color: 'white',
     },
-    icon1:{
-        height:25,
-        width:25
-    }
+    text: {
+        fontSize : 20,
+        alignItems: 'center',
+        marginLeft: '10%'
+    },icon1: {
+        width: 25,
+        height: 25
+    },
 })
