@@ -54,7 +54,7 @@ export default class UpdateScreen extends Component{
             if (len > 0) {
             for (let i = 0; i < len; i++) {
                 var data = this.tinhArr[i];
-                display.push(data.name);
+                display.push(data.name_with_type);
             }
             }
             this.setState({
@@ -73,14 +73,14 @@ export default class UpdateScreen extends Component{
             if (len > 0) {
               for (let i = 0; i < len; i++) {
                 var data1 = this.tinhArr[i];
-                if (data1.name === text) {
+                if (data1.name_with_type === text) {
                     var data = Object.keys(huyen).map((name) => {
                         if (huyen[name].parent_code === data1.code) {
                             this.huyenArr.push(huyen[name]);
-                            display.push(huyen[name].name);
+                            display.push(huyen[name].name_with_type);
                         }
                         return (
-                          <Text>Type of name: {huyen[name].name}</Text>
+                          <Text>Type of name: {huyen[name].name_with_type}</Text>
                         )
                         
                     });
@@ -112,13 +112,13 @@ export default class UpdateScreen extends Component{
             if (len > 0) {
               for (let i = 0; i < len; i++) {
                 var data1 = this.huyenArr[i];
-                if (data1.name === text) {
+                if (data1.name_with_type === text) {
                     var data = Object.keys(xa).map((name) => {
                         if (xa[name].parent_code === data1.code) {
-                            display.push(xa[name].name)
+                            display.push(xa[name].name_with_type)
                         }
                         return (
-                          <Text>Type of name: {xa[name].name}</Text>
+                          <Text>Type of name: {xa[name].name_with_type}</Text>
                         )
                         
                     });
