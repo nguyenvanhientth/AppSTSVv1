@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,Platform } from 'react-native';
+import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,Platform,ScrollView } from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent'
 
 const Address = require('../Icons/address.png');
@@ -15,7 +15,6 @@ export default class XinGiayXNScreen extends Component {
         super(props);
         state= {
             address: '',
-            khoa: '',
             HocKi: '',
             LyDo: ''
         }
@@ -77,15 +76,6 @@ export default class XinGiayXNScreen extends Component {
                 <View style={styles.inputContainer}>
                     <Image style={styles.inputIcon} source={Address}/>
                     <TextInput style={styles.textInput}
-                               placeholder= "Sinh Viên Khóa"
-                               keyboardType="default"
-                               underlineColorAndroid='transparent'
-                               onChangeText={(khoa)=>this.setState({khoa})}
-                    />
-                </View>
-                <View style={styles.inputContainer}>
-                    <Image style={styles.inputIcon} source={Address}/>
-                    <TextInput style={styles.textInput}
                                placeholder= "Học Kì"
                                keyboardType="default"
                                underlineColorAndroid='transparent'
@@ -115,6 +105,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#99FFFF',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',

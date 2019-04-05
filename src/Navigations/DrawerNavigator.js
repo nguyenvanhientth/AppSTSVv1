@@ -4,6 +4,8 @@ import MainScreen from '../Screens/MainScreen';
 import ChangePassScreen from '../Screens/ChangePassScreen';
 import UpdateScreen from '../Screens/UpdateScreen';
 import XinGiayXNScreen from '../Screens/XinGiayXNScreen';
+import XinBangDiemScreen from '../Screens/XinBangDiemScreen';
+import ThoiKhoaBieuScreen from '../Screens/ThoiKhoaBieuScreen';
 import SiderBarComponent from '../Components/SideBarComponent';
 
 const NavigationProfile = (props) => (
@@ -22,7 +24,13 @@ const MyDrawerNavigator = createDrawerNavigator({
     },
     XinGiayXN:{
       screen: XinGiayXNScreen,navigationOptions: {header: null} 
-    }
+    },
+    XinBangDiem: {
+      screen: XinBangDiemScreen,navigationOptions: {header: null}
+    },
+    XemTKB: {
+      screen: ThoiKhoaBieuScreen,navigationOptions: {header: null}
+    },
   },
   {
     initialRouteName: 'Home',
