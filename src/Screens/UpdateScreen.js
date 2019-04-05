@@ -130,6 +130,9 @@ export default class UpdateScreen extends Component{
             })
         }  
     }
+    onChange = () => {
+        alert('click');
+    }
     render() {
         return(
             <View>
@@ -242,7 +245,7 @@ export default class UpdateScreen extends Component{
                                onChangeText={(address)=>this.setState({address})}
                     />
                 </View>
-                <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onClickListener('registration')}>
+                <TouchableHighlight style={[styles.buttonContainer]} onPress={() => this.onChange()}>
                     <Text style={styles.loginText}>Change</Text>
                 </TouchableHighlight>
             </View>
