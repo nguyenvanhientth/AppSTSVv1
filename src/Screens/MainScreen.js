@@ -15,7 +15,7 @@ export default class MainScreen extends React.Component {
     componentDidMount(){
         AsyncStorage.getItem(STORAGE_KEY).then((user_data_json) => {
             let token = user_data_json;   
-            console.warn(token)
+            //console.warn(token)
             if(token === null){
               var { navigate } = this.props.navigation;
               navigate('Login');

@@ -1,4 +1,4 @@
-import { createStackNavigator, createAppContainer , createTabNavigator, createBottomTabNavigator} from "react-navigation";
+import { createStackNavigator, createAppContainer , createSwitchNavigator, createBottomTabNavigator} from "react-navigation";
 import React from 'react';
 import {Image} from 'react-native';
 import MyApp from '../Navigations/DrawerNavigator';
@@ -48,11 +48,11 @@ const tabProfile = createBottomTabNavigator(
   }
 )
 
-const RootStack = createStackNavigator(
+const RootStack = createSwitchNavigator(
   {
-    Main : {screen: tabProfile,navigationOptions: {header: null} },
+    Splash: {screen: SplashStack,navigationOptions: {header: null} },
     Login : {screen: LoginStackNavigator,navigationOptions: {header: null} },
-    Splash: {screen: SplashStack,navigationOptions: {header: null} }
+    Main : {screen: tabProfile,navigationOptions: {header: null} },
     },
     {
       initialRouteName: 'Splash',
