@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert,TouchableOpacity } from 'react-native';
 
+import env from '../environment/env';
+
+const BASE_URL = env;
 const id = require('../Icons/IdIcon.png');
 const email = require('../Icons/emailIcon.png');
 
@@ -27,6 +30,44 @@ export default class FogotPassScreen extends Component {
   }
 
   _onPressForgot = () => {
+    let url = BASE_URL + "Account/ForgotPassword";
+            let userName = this.state.masv;
+            let Email = this.state.Email;
+            let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+            if (userName === '' ||Email === "") {
+                alert('Ban chua nhap day du! ');
+            } else if (reg.test(Email) === false)
+            {
+                alert('Email is not correct!');
+                this.setState({Email:''})
+            } 
+            else {
+                this.setState({loading: true});
+                fetch(url,{
+                    method: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                      },
+                    body: JSON.stringify({
+                        'UserName' : userName,
+                        'Email' :Email
+                        })
+                })
+                .then((resJson) => {
+                    if (resJson.ok) {
+                        alert(`Yeu cau thanh cong! Ban vao email: ${Email} de lay mat khau moi!`);
+                        this.setState({loading: false});
+                    } else {
+                        this.setState({loading: false});
+                        alert('Request false! You checking!');
+                    }
+                })
+                .catch((err) => {
+                    this.setState({loading: false});
+                    console.log(err);
+                })
+            }
 
   }
 

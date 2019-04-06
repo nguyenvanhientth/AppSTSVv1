@@ -3,8 +3,8 @@ import {View, Text, StyleSheet, Platform, Image, TextInput, TouchableHighlight, 
 import HeaderComponent from '../Components/HeaderComponent';
 import ReactNativePickerModule from 'react-native-picker-module';
 
-const update = require('../Images/update.png');
-const nganhHoc = require('../Icons/nganhHocIcon.png')
+const xinGiay = require('../Images/xinGiay.png');
+const nganhHoc = require('../Icons/nganhHocIcon.png');
 const Address = require('../Icons/address.png');
 const name = require('../Icons/name.png');
 const tinh = require('../access/Tinh.json');
@@ -14,7 +14,7 @@ const xa = require('../access/xa_phuong.json');
 export default class XinGiayXNScreen extends Component{
     static navigationOptions = {
         drawerIcon: ({icon}) =>(
-            <Image source = {update} resizeMode="contain" style = {[styles.icon1]} />
+            <Image source = {xinGiay} resizeMode="contain" style = {[styles.icon1]} />
         )
       };
     constructor(props){
