@@ -15,7 +15,8 @@ export default class SiderBarComponent extends Component {
             profile: null
         }
     }
-    componentDidMount() {       
+    componentDidMount() {  
+             
       }
     _signOutAsync = async () => {
         await AsyncStorage.clear();

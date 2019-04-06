@@ -9,12 +9,15 @@ export default class SplashScreen extends React.Component {
         return new Promise((resolve) =>
           setTimeout(
             () => { resolve('result') },
-            5000
+            2000
           )
         )
       }
-      componentDidMount(){
-        this._bootstrapAsync();
+      componentDidMount = async()=>{
+        const data = await this.performTimeConsumingTask();
+        if (data !== null) {
+          this._bootstrapAsync();
+        }
     }
     _bootstrapAsync = async () => {
       const userToken = await AsyncStorage.getItem(STORAGE_KEY);

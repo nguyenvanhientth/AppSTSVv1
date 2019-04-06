@@ -6,6 +6,9 @@ import ForgotPassScreen from '../Screens/ForgotPassScreen';
 const LoginStack = createStackNavigator({
     Login: {screen: LoginScreen,navigationOptions: {header: null} },
     Forgot: {screen: ForgotPassScreen,navigationOptions: {header: null} }
+},
+{
+    initialRouteName: 'Login',
 }
 );
 

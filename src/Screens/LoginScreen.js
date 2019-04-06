@@ -23,7 +23,7 @@ export default class LoginScreen extends Component {
         }
     }
     componentDidMount= async () =>{
-        await AsyncStorage.clear();
+        //await AsyncStorage.clear();
     }
 
     _onChaneText = (masv) =>{
