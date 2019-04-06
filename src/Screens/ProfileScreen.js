@@ -1,8 +1,13 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet, Platform, Image , TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, AsyncStorage, Image , TouchableOpacity} from 'react-native';
+import env from '../environment/env';
 
+const BASE_URL = env;
+var STORAGE_KEY = 'key_access_token';
 const profile = require('../Images/profile.png');
 const phone = require('../Images/phone.png');
+const id = require('../Icons/IdIcon.png');
+const birthday = require('../Icons/birthday.png');
 const email = require('../Images/email1.png');
 const address = require('../Images/address.png');
 
@@ -10,40 +15,84 @@ export default class MainScreen extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            name: 'UserName'
+            firstName: '',
+            lastName: '',
+            sdt: '',
+            maSV: '',
+            address: '',
+            email: '',
+            birthday: ''
         }
+    }
+    componentDidMount = async()=> {
+        this._getInfomation();
     }
     logoutClick = () =>{
         alert('Onclick');
         this.props.navigation.navigate('Login')
     } 
+    _getInfomation = async () => {
+        const userToken = await AsyncStorage.getItem(STORAGE_KEY);
+        let url = BASE_URL + 'Account/GetUserInformation'
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer ' + userToken,
+            },
+        })
+        .then((res) => res.json())
+        .then((resJson) => {
+            this.setState({
+                firstName: resJson.firstName,
+                lastName: resJson.lastName,
+                sdt: resJson.phoneNumber,
+                email: resJson.email,
+                address: resJson.address,
+                maSV: resJson.userName,
+                birthday: resJson.dateOfBirth
+            })
+            console.warn(resJson);
+        });
+    }
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.conProfile}>
                     <Image source = {profile} style = {styles.imageProfile}/>
                     <View style = {styles.conProfile}>
-                        <Text style = {styles.name}>Hello {this.state.name}</Text>
+                        <Text style = {styles.name}>Hello {this.state.firstName} {this.state.lastName}</Text>
                         <TouchableOpacity style = {styles.logout} onPress = {() => this.logoutClick()}><Text>Logout</Text></TouchableOpacity>
                     </View>
                 </View>
                 <View style = {{width:'100%'}}>
                     <View style = {styles.comPhone}>
+                        <Image source = {id} style = {styles.icon}/>  
+                        <Text style={styles.text}>
+                            {this.state.maSV}
+                        </Text>
+                    </View>
+                    <View style = {styles.comPhone}>
                         <Image source = {phone} style = {styles.icon}/>  
                         <Text style={styles.text}>
-                            0123456789
+                            {this.state.sdt}
                         </Text>
                     </View>
                     <View style = {styles.comPhone}>
                         <Image source = {email} style = {styles.icon}/>  
                         <Text style={styles.text}>
-                            nguyenvana@gmail.com
+                            {this.state.email}
                         </Text>
                     </View>
                     <View style = {styles.comPhone}>
                         <Image source = {address} style = {styles.icon}/>  
                         <Text style={styles.text}>
-                            Hoa khanh Nam, lien chieu , Da Nang, Viet Nam
+                            {this.state.address}
+                        </Text>
+                    </View>
+                    <View style = {styles.comPhone}>
+                        <Image source = {birthday} style = {styles.icon}/>  
+                        <Text style={styles.text}>
+                            {this.state.birthday}
                         </Text>
                     </View>
                 </View>
