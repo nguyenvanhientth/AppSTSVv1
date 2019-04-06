@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, Platform
+  StyleSheet,Text,View,TextInput,TouchableHighlight,Image,Alert, Platform, AsyncStorage, ToastAndroid, ActivityIndicator
 } from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent';
+import env from '../environment/env';
 
+const BASE_URL = env;
+var STORAGE_KEY = 'key_access_token';
 const pass = require('../Icons/PassWord.png');
 const change = require('../Images/change.png');
 
@@ -21,7 +24,7 @@ export default class ChangePassScreen extends Component {
       NewPass: '',
       ConPass: '',
       loading: false
-    }
+    };
   }
 
   _onChaneOld = (OldPass) => {
@@ -39,7 +42,52 @@ _onChaneConfim = (ConPass) => {
 }
 
 _onPressForgot = () => {
-  
+  AsyncStorage.getItem(STORAGE_KEY).then((user_data_json) => {
+    this.setState({loading: true});
+  let token = user_data_json;
+  if (token === undefined) {
+      var{navigate} = this.props.navigation;
+      navigate('Main');
+      this.setState({loading: false});
+  }
+  let passO = this.state.OldPass;
+  let passN = this.state.NewPass;
+  let passC = this.state.ConPass;
+  if (passN !== passC) {
+      alert('You input password new and confirm not duplicate!')
+  } else {
+      let url = BASE_URL + 'Account/ChangePassword'
+      fetch(url,{
+          method: 'POST',
+          headers: {
+                'Accept': 'application/json',
+              'Content-Type': 'application/json',
+               Authorization: 'Bearer ' + token,
+          },
+          body: JSON.stringify({
+              'CurrentPassword':passO,
+              'NewPassword': passN,
+              'NewPasswordConfirm': passC
+          })
+      })
+      .then((res) => {
+        console.warn(res);
+          if (res.ok) {
+              var {navigate} = this.props.navigation;
+              navigate('Home');
+              this.setState({loading: false});
+              ToastAndroid.show('Change Success!', ToastAndroid.CENTER);
+          } else {
+            ToastAndroid.show('Change False!', ToastAndroid.CENTER);
+            this.setState({loading: false});
+          }
+      })
+      .catch((err) => {
+          console.log(err);
+          this.setState({loading: false});
+      })
+  }
+})
 }
   
   onClickCancel = () => {
