@@ -91,7 +91,9 @@ export default class UpdateScreen extends Component{
         var display= [];
         this.setState({
             nameHuyen: 'Select Huyen',
-            nameXa: 'Select Xa'
+            nameXa: 'Select Xa',
+            huyenList: [],
+            xaList: []
         })
         if(this.tinhArr){
             var len = this.tinhArr.length;
@@ -130,7 +132,8 @@ export default class UpdateScreen extends Component{
     onChangeHuyen =(text)=>{
         var display= [];
         this.setState({
-            nameXa: 'Select Xa'
+            nameXa: 'Select Xa',
+            xaList:[]
         })
         if(this.huyenArr){
             var len = this.huyenArr.length;

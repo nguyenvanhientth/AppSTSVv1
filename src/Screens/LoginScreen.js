@@ -22,6 +22,9 @@ export default class LoginScreen extends Component {
             loading: false
         }
     }
+    componentDidMount= async () =>{
+        await AsyncStorage.clear();
+    }
 
     _onChaneText = (masv) =>{
         this.setState({masv});
@@ -77,8 +80,8 @@ export default class LoginScreen extends Component {
             this.setState({loading:false})
             //console.warn('asdsad',error);
           }); 
-      }
-      }  
+        }
+    }  
 
     forgotClick = ()=>{
         this.props.navigation.navigate('Forgot');

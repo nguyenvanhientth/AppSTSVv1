@@ -17,6 +17,10 @@ export default class SiderBarComponent extends Component {
     }
     componentDidMount() {       
       }
+    _signOutAsync = async () => {
+        await AsyncStorage.clear();
+        this.props.navigation.navigate('Login');
+      };
     //   componentDidUpdate(){
     //         this.componentDidMount();
     //     }
@@ -31,21 +35,12 @@ export default class SiderBarComponent extends Component {
                 <View>
                     <DrawerItems {...props}/>
                 </View>
-                <TouchableOpacity onPress={this.signOut} style={styles.btnSignOut}>
+                <TouchableOpacity onPress={()=>this._signOutAsync()} style={styles.btnSignOut}>
                     <Image source = {logout} resizeMode="contain" style = {styles.icon} />
                     <Text style={styles.signOutText}>Sign out</Text>
                 </TouchableOpacity>
             </View>
         )
-    }
-
-    signOut = ()=>{
-        //AsyncStorage.clear();
-        AsyncStorage.removeItem(STORAGE_KEY)
-        setTimeout(()=>{
-            this.props.navigation.navigate('Login');
-        }, 500)
-        
     }
 }
 

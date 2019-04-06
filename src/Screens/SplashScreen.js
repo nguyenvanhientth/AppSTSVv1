@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Image, StyleSheet,AsyncStorage} from 'react-native';
 
 const logo = require('../Images/Logo_spkt.png');
-var STORAGE_KEY = '';
+var STORAGE_KEY = 'key_access_token';
 
 export default class SplashScreen extends React.Component {
     performTimeConsumingTask = async() => {
@@ -14,22 +14,15 @@ export default class SplashScreen extends React.Component {
         )
       }
       componentDidMount(){
-        AsyncStorage.getItem(STORAGE_KEY).then((user_data_json) => {
-            let token = user_data_json;   
-            //console.warn(token)
-            if(token === null){
-              var { navigate } = this.props.navigation;
-              navigate('Login');
-              this.setState({
-                  loading: false
-              })
-            }
-            else{
-    //-----------get data async from helper----------------------
-              this.props.navigation.navigate('Main');
-            }    
-        })
+        this._bootstrapAsync();
     }
+    _bootstrapAsync = async () => {
+      const userToken = await AsyncStorage.getItem(STORAGE_KEY);
+  
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      this.props.navigation.navigate(userToken ? 'Main' : 'Login');
+    };
       render() {
         return (
           <View style={styles.viewStyles}>
