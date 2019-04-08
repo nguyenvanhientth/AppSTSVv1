@@ -1,9 +1,22 @@
-import React from 'react';
-import { Text, View, ScrollView, StyleSheet, AsyncStorage , Image} from 'react-native';
+import React,{ Component } from 'react';
+import { Text, View, ScrollView, StyleSheet, AsyncStorage , Image, FlatList} from 'react-native';
 import HeaderComponent from '../Components/HeaderComponent';
+import flastListData from '../data/flastListData'
 
 const main = require('../Images/home.png');
 var STORAGE_KEY = 'key_access_token';
+
+class FlastListItem extends Component{
+    render(){
+        return(
+            <View>
+                <Text style={styles.textName}>{this.props.item.name}</Text>
+                <Text style={styles.textContent}>{this.props.item.content}</Text>
+                <Text style={styles.textAuther}>{this.props.item.auther}</Text>
+            </View>
+        );
+    }
+}
 
 export default class MainScreen extends React.Component {
     static navigationOptions = {
@@ -34,9 +47,14 @@ export default class MainScreen extends React.Component {
             <HeaderComponent {...this.props} ></HeaderComponent>
             <ScrollView>
             <View style={styles.container}>
-                <Text style={styles.text}>
-                    Main !
-                </Text>
+                <FlatList data={flastListData}
+                          renderItem={({item,index})=>{
+                            return(<FlastListItem item={item} index={index}>
+
+                            </FlastListItem>);
+                          }}>
+
+                </FlatList>
             </View>
             </ScrollView>
             </View>
@@ -50,13 +68,23 @@ const styles = StyleSheet.create({
         backgroundColor : '#fff',
         justifyContent : 'center',
         alignItems : 'center',
+        backgroundColor: '#99FFFF',
         
-    },
-    text: {
-        fontSize : 30
     },
     icon1: {
         width: 25,
         height: 25
     },
+    textName: {
+        padding : 8,
+        fontSize:16,
+        fontWeight: 'bold',
+    },textContent: {
+        fontSize : 13,
+        padding : 8
+    },
+    textAuther: {
+        fontSize: 10,
+        paddingBottom: 15,
+    }
 })
