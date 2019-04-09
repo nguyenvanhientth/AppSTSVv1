@@ -51,7 +51,7 @@ export default class MainScreen extends React.Component {
                 maSV: resJson.userName,
                 birthday: resJson.dateOfBirth
             })
-            console.warn(resJson);
+           // console.warn(resJson);
         });
     }
     render(){
@@ -60,7 +60,7 @@ export default class MainScreen extends React.Component {
                 <View style={styles.conProfile}>
                     <Image source = {profile} style = {styles.imageProfile}/>
                     <View style = {styles.conProfile}>
-                        <Text style = {styles.name}>Hello {this.state.firstName} {this.state.lastName}</Text>
+                        <Text style = {styles.name}>Hello {this.state.lastName} {this.state.firstName}</Text>
                         <TouchableOpacity style = {styles.logout} onPress = {() => this.logoutClick()}><Text>Logout</Text></TouchableOpacity>
                     </View>
                 </View>
